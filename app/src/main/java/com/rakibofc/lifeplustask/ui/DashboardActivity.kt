@@ -7,14 +7,14 @@ import androidx.lifecycle.lifecycleScope
 import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.databinding.ActivityDashboardBinding
 import com.rakibofc.lifeplustask.util.UiState
-import com.rakibofc.lifeplustask.viewmodel.AuthViewModel
+import com.rakibofc.lifeplustask.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DashboardActivity : BaseActivity() {
 
-    private val viewModel: AuthViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityDashboardBinding
 
     private var userID: Long = 0

@@ -5,15 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rakibofc.lifeplustask.data.local.UserEntity
-import com.rakibofc.lifeplustask.domain.usecase.AuthUseCase
+import com.rakibofc.lifeplustask.domain.usecase.MainUseCase
 import com.rakibofc.lifeplustask.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(
-    private val authUseCase: AuthUseCase
+class MainViewModel @Inject constructor(
+    private val mainUseCase: MainUseCase
 ) : ViewModel() {
 
     private val _registerUser = MutableLiveData<UiState<String>>()
@@ -28,21 +28,21 @@ class AuthViewModel @Inject constructor(
     suspend fun registerUser(user: UserEntity) {
         _registerUser.postValue(UiState.Loading)
         viewModelScope.launch {
-            _registerUser.postValue(authUseCase.registerUser(user))
+            _registerUser.postValue(mainUseCase.registerUser(user))
         }
     }
 
     suspend fun loginUser(userName: String, password: String) {
         _loginUser.postValue(UiState.Loading)
         viewModelScope.launch {
-            _loginUser.postValue(authUseCase.loginUser(userName, password))
+            _loginUser.postValue(mainUseCase.loginUser(userName, password))
         }
     }
 
     suspend fun loadUser(userId: Long) {
         _user.postValue(UiState.Loading)
         viewModelScope.launch {
-            _user.postValue(authUseCase.getUserById(userId))
+            _user.postValue(mainUseCase.getUserById(userId))
         }
     }
 }

@@ -1,12 +1,12 @@
 package com.rakibofc.lifeplustask.data.local
 
-import com.rakibofc.lifeplustask.domain.usecase.AuthUseCase
+import com.rakibofc.lifeplustask.domain.usecase.MainUseCase
 import com.rakibofc.lifeplustask.util.UiState
 import javax.inject.Inject
 
-class AuthRepository @Inject constructor(
+class MainRepository @Inject constructor(
     private val lifePlusDao: LifePlusDao
-) : AuthUseCase {
+) : MainUseCase {
 
     override suspend fun registerUser(user: UserEntity): UiState<String> {
         return try {
