@@ -6,4 +6,5 @@ import com.rakibofc.lifeplustask.util.UiState
 interface AuthUseCase {
     suspend fun registerUser(user: UserEntity): UiState<String>
     suspend fun loginUser(userName: String, password: String): UiState<UserEntity>
+    suspend fun getUserById(userId: Long): UiState<UserEntity>
 }

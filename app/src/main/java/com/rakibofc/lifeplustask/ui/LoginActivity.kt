@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.rakibofc.lifeplustask.R
+import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.databinding.ActivityLoginBinding
 import com.rakibofc.lifeplustask.util.UiState
 import com.rakibofc.lifeplustask.viewmodel.AuthViewModel
@@ -44,7 +45,10 @@ class LoginActivity : BaseActivity() {
 
                 is UiState.Success -> {
                     binding.btnLogin.isEnabled = true
-                    showToast(it.data.toString())
+                    startActivity(Intent(this@LoginActivity, DashboardActivity::class.java).apply {
+                        putExtra(UserEntity.USER_ID, it.data.id)
+                    })
+                    finish()
                 }
             }
         }

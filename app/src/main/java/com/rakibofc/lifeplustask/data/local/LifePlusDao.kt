@@ -22,4 +22,7 @@ interface LifePlusDao {
     """
     )
     suspend fun loginUser(userName: String, password: String): UserEntity?
+
+    @Query("SELECT * FROM users WHERE id = :userId")
+    suspend fun getUserById(userId: Long): UserEntity?
 }

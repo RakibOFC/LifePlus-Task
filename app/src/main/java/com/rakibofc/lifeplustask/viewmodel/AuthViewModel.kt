@@ -22,6 +22,9 @@ class AuthViewModel @Inject constructor(
     private val _loginUser = MutableLiveData<UiState<UserEntity>>()
     val loginUser: LiveData<UiState<UserEntity>> get() = _loginUser
 
+    private val _user = MutableLiveData<UiState<UserEntity>>()
+    val user: LiveData<UiState<UserEntity>> get() = _user
+
     suspend fun registerUser(user: UserEntity) {
         _registerUser.postValue(UiState.Loading)
         viewModelScope.launch {
@@ -33,6 +36,13 @@ class AuthViewModel @Inject constructor(
         _loginUser.postValue(UiState.Loading)
         viewModelScope.launch {
             _loginUser.postValue(authUseCase.loginUser(userName, password))
+        }
+    }
+
+    suspend fun loadUser(userId: Long) {
+        _user.postValue(UiState.Loading)
+        viewModelScope.launch {
+            _user.postValue(authUseCase.getUserById(userId))
         }
     }
 }

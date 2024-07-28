@@ -29,4 +29,17 @@ class AuthRepository @Inject constructor(
             UiState.Error(ex.message ?: "Unknown error occurred")
         }
     }
+
+    override suspend fun getUserById(userId: Long): UiState<UserEntity> {
+        return try {
+            val user = lifePlusDao.getUserById(userId)
+            if (user != null) {
+                UiState.Success(user)
+            } else {
+                UiState.Error("User not found")
+            }
+        } catch (ex: Exception) {
+            UiState.Error(ex.message ?: "Unknown error occurred")
+        }
+    }
 }
