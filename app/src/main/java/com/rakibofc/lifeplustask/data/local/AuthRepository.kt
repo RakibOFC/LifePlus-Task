@@ -1,6 +1,6 @@
 package com.rakibofc.lifeplustask.data.local
 
-import com.rakibofc.lifeplustask.domain.AuthUseCase
+import com.rakibofc.lifeplustask.domain.usecase.AuthUseCase
 import com.rakibofc.lifeplustask.util.UiState
 import javax.inject.Inject
 

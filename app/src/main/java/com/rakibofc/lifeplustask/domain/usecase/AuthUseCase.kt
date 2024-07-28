@@ -1,4 +1,4 @@
-package com.rakibofc.lifeplustask.domain
+package com.rakibofc.lifeplustask.domain.usecase
 
 import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.util.UiState
