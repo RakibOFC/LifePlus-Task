@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">LifePlus Task</string>
+    <string name="user_name_text">User Name</string>
+    <string name="password_text">Password</string>
+    <string name="login_text">Login</string>
+    <string name="registration_text">Registration</string>
+    <string name="register_text">Register</string>
+    <string name="name_text">Name</string>
+    <string name="phone_text">Phone</string>
+</resources>
