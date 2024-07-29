@@ -107,6 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="@dimen/_10sdp"
         android:text="@string/no_result_text"
         android:textAlignment="center"
         android:visibility="gone" />
