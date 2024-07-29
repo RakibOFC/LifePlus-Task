@@ -2,9 +2,12 @@ package com.rakibofc.lifeplustask.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
 import com.rakibofc.lifeplustask.data.local.UserEntity
+import com.rakibofc.lifeplustask.data.remote.SearchResult
 import com.rakibofc.lifeplustask.databinding.ActivityDashboardBinding
 import com.rakibofc.lifeplustask.util.UiState
 import com.rakibofc.lifeplustask.viewmodel.MainViewModel
@@ -50,19 +53,43 @@ class DashboardActivity : BaseActivity() {
     private fun setupObserver() {
 
         viewModel.user.observe(this) {
+            handleUserData(it)
+        }
 
-            when (it) {
-                is UiState.Loading -> {
-                    // Nothing todo..
-                }
+        viewModel.searchResult.observe(this) {
+            handleSearchResult(it)
+        }
+    }
 
-                is UiState.Error -> {
-                    showToast(it.message)
-                }
+    private fun handleUserData(user: UiState<UserEntity>) {
+        when (user) {
+            is UiState.Loading -> {
+                // Nothing todo..
+                Log.e("TAG", "User: Loading...")
+            }
 
-                is UiState.Success -> {
-                    binding.userName.text = it.data.name
-                }
+            is UiState.Error -> {
+                showToast(user.message)
+            }
+
+            is UiState.Success -> {
+                binding.userName.text = user.data.name
+            }
+        }
+    }
+
+    private fun handleSearchResult(searchResult: UiState<List<SearchResult>>) {
+        when (searchResult) {
+            is UiState.Loading -> {
+                Log.e("TAG", "SearchResult: Loading...")
+            }
+
+            is UiState.Error -> {
+                Log.e("TAG", "Error: ${searchResult.message}")
+            }
+
+            is UiState.Success -> {
+                Log.e("TAG", "Success: ${Gson().toJson(searchResult.data)}")
             }
         }
     }
@@ -70,6 +97,8 @@ class DashboardActivity : BaseActivity() {
     private fun loadViewModelData() {
         lifecycleScope.launch {
             viewModel.loadUser(userID)
+
+            viewModel.getSearchResult("girls")
         }
     }
 }

@@ -65,6 +65,11 @@ dependencies {
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
+    // Rest API: Retrofit
+    val retrofitVersion = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+
     // Dependency Injection: Hilt
     val hiltVersion = "2.47"
     implementation("com.google.dagger:hilt-android:$hiltVersion")

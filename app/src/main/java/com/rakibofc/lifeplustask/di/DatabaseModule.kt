@@ -2,10 +2,8 @@ package com.rakibofc.lifeplustask.di
 
 import android.content.Context
 import androidx.room.Room
-import com.rakibofc.lifeplustask.data.local.MainRepository
 import com.rakibofc.lifeplustask.data.local.LifePlusDao
 import com.rakibofc.lifeplustask.data.local.LifePlusDatabase
-import com.rakibofc.lifeplustask.domain.usecase.MainUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object DatabaseModule {
 
     private const val DB_NAME = "life_plus.db"
 
@@ -33,11 +31,5 @@ object AppModule {
     @Singleton
     fun provideLifePlusDao(mDatabase: LifePlusDatabase): LifePlusDao {
         return mDatabase.lifePlusDao()
-    }
-
-    @Provides
-    @Singleton
-    fun provideAuthRepository(lifePlusDao: LifePlusDao): MainUseCase {
-        return MainRepository(lifePlusDao)
     }
 }
