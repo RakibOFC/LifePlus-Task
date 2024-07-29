@@ -70,9 +70,15 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
+    // Image Loader: Picasso
+    implementation("com.squareup.picasso:picasso:2.71828")
+
     // Dependency Injection: Hilt
     val hiltVersion = "2.47"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-compiler:$hiltVersion")
     implementation("com.google.dagger:hilt-android-gradle-plugin:$hiltVersion")
+
+    // Facebook Shimmer Effect
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 }

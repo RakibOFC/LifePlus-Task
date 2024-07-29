@@ -11,4 +11,7 @@
     <string name="enter_name_text">Enter Name</string>
     <string name="phone_text">Phone</string>
     <string name="enter_phone_text">Enter Phone</string>
+    <string name="placeholder_text">-</string>
+    <string name="search_show_text">Search show…</string>
+    <string name="search_text">Search</string>
 </resources>

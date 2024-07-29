@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.LoginActivity">
+    tools:context=".ui.activity.LoginActivity">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="@dimen/_50sdp"

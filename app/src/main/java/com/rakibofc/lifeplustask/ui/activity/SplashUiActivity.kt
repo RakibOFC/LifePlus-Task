@@ -1,16 +1,12 @@
-package com.rakibofc.lifeplustask.ui
+package com.rakibofc.lifeplustask.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.rakibofc.lifeplustask.R
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashUiActivity : AppCompatActivity() {

@@ -17,13 +17,15 @@
         android:theme="@style/Theme.LifePlusTask"
         tools:targetApi="31">
         <activity
-            android:name=".ui.ProfileActivity"
+            android:name=".ui.activity.ProfileActivity"
             android:exported="false" />
-        <!--<activity
-            android:name=".ui.DashboardActivity"
-            android:exported="false" />-->
+        <!--
         <activity
             android:name=".ui.DashboardActivity"
+            android:exported="false" />
+        -->
+        <activity
+            android:name=".ui.activity.DashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,15 +34,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.RegistrationActivity"
+            android:name=".ui.activity.RegistrationActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.SplashUiActivity"
+            android:name=".ui.activity.SplashUiActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

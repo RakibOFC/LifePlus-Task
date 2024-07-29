@@ -1,4 +1,4 @@
-package com.rakibofc.lifeplustask.ui
+package com.rakibofc.lifeplustask.ui.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

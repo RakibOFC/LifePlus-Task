@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#017fff</color>
+    <color name="home_sep_color">#E5E5E5</color>
+    <color name="loading_effect">#808080</color>
 </resources>

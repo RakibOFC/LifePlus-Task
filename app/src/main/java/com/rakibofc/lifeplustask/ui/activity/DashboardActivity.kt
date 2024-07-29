@@ -1,14 +1,15 @@
-package com.rakibofc.lifeplustask.ui
+package com.rakibofc.lifeplustask.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.gson.Gson
 import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.data.remote.SearchResult
 import com.rakibofc.lifeplustask.databinding.ActivityDashboardBinding
+import com.rakibofc.lifeplustask.ui.adapter.SearchResultAdapter
 import com.rakibofc.lifeplustask.util.UiState
 import com.rakibofc.lifeplustask.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +44,7 @@ class DashboardActivity : BaseActivity() {
 
     private fun setupListener() {
 
-        binding.cvName.setOnClickListener {
+        binding.llcName.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, ProfileActivity::class.java).apply {
                 putExtra(UserEntity.USER_ID, userID)
             })
@@ -65,7 +66,6 @@ class DashboardActivity : BaseActivity() {
         when (user) {
             is UiState.Loading -> {
                 // Nothing todo..
-                Log.e("TAG", "User: Loading...")
             }
 
             is UiState.Error -> {
@@ -81,15 +81,21 @@ class DashboardActivity : BaseActivity() {
     private fun handleSearchResult(searchResult: UiState<List<SearchResult>>) {
         when (searchResult) {
             is UiState.Loading -> {
-                Log.e("TAG", "SearchResult: Loading...")
+                binding.rvSearchResult.visibility = View.GONE
+                binding.loadingEffect.visibility = View.VISIBLE
             }
 
             is UiState.Error -> {
-                Log.e("TAG", "Error: ${searchResult.message}")
+                binding.rvSearchResult.visibility = View.GONE
+                binding.loadingEffect.visibility = View.GONE
             }
 
             is UiState.Success -> {
-                Log.e("TAG", "Success: ${Gson().toJson(searchResult.data)}")
+                binding.rvSearchResult.adapter =
+                    SearchResultAdapter(applicationContext, searchResult.data)
+
+                binding.rvSearchResult.visibility = View.VISIBLE
+                binding.loadingEffect.visibility = View.GONE
             }
         }
     }
@@ -98,7 +104,7 @@ class DashboardActivity : BaseActivity() {
         lifecycleScope.launch {
             viewModel.loadUser(userID)
 
-            viewModel.getSearchResult("girls")
+            viewModel.getSearchResult("man")
         }
     }
 }

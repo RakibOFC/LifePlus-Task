@@ -1,4 +1,4 @@
-package com.rakibofc.lifeplustask.ui
+package com.rakibofc.lifeplustask.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
