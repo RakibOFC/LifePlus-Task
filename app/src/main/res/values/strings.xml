@@ -15,4 +15,5 @@
     <string name="search_show_text">Search show…</string>
     <string name="search_text">Search</string>
     <string name="no_result_text">No results</string>
+    <string name="go_back_text">Go Back</string>
 </resources>
