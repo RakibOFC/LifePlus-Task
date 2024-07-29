@@ -108,6 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/no_result_text"
+        android:textAlignment="center"
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView

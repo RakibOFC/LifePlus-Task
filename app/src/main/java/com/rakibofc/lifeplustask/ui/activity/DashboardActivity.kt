@@ -1,9 +1,12 @@
 package com.rakibofc.lifeplustask.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import com.rakibofc.lifeplustask.R
 import com.rakibofc.lifeplustask.data.local.UserEntity
@@ -14,6 +17,7 @@ import com.rakibofc.lifeplustask.util.UiState
 import com.rakibofc.lifeplustask.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class DashboardActivity : BaseActivity() {
@@ -48,6 +52,41 @@ class DashboardActivity : BaseActivity() {
             startActivity(Intent(this@DashboardActivity, ProfileActivity::class.java).apply {
                 putExtra(UserEntity.USER_ID, userID)
             })
+        }
+
+        binding.searchViewText.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                // Load word from database
+                query?.let {
+                    loadSearchText(it)
+                }
+
+                // Hide keyboard
+                // hideKeyboard()
+                binding.searchViewText.clearFocus()
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+
+        binding.mToolbar.setOnMenuItemClickListener {
+
+            when (it.itemId) {
+                R.id.actionSearch -> {
+
+                    // Hide keyboard
+                    hideKeyboard()
+
+                    val searchText = binding.searchViewText.query.toString()
+                    loadSearchText(searchText)
+                }
+            }
+            true
         }
     }
 
@@ -115,11 +154,37 @@ class DashboardActivity : BaseActivity() {
         }
     }
 
+    private fun loadSearchText(searchText: String) {
+
+        if (searchText.isNotEmpty()) {
+
+            binding.tvStatus.visibility = View.GONE
+            binding.rvSearchResult.visibility = View.GONE
+            binding.loadingEffect.visibility = View.VISIBLE
+
+            lifecycleScope.launch {
+                viewModel.getSearchResult(searchText)
+            }
+        }
+    }
+
     private fun loadViewModelData() {
+
+        val showKeyWords = arrayOf("iron", "man", "tiger", "wolf")
+        val randomKeyword = showKeyWords[Random.nextInt(0, showKeyWords.size)]
+
+        // Set keyword in the SearchBox
+        binding.searchViewText.setQuery(randomKeyword, true)
+        loadSearchText(randomKeyword)
+
         lifecycleScope.launch {
             viewModel.loadUser(userID)
-
-            viewModel.getSearchResult("man")
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val view = currentFocus ?: View(this)
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
