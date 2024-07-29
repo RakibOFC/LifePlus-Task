@@ -14,4 +14,5 @@
     <string name="placeholder_text">-</string>
     <string name="search_show_text">Search show…</string>
     <string name="search_text">Search</string>
+    <string name="no_result_text">No results</string>
 </resources>

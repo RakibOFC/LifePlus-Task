@@ -2,10 +2,10 @@ package com.rakibofc.lifeplustask.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.rakibofc.lifeplustask.R
 import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.data.remote.SearchResult
 import com.rakibofc.lifeplustask.databinding.ActivityDashboardBinding
@@ -82,20 +82,35 @@ class DashboardActivity : BaseActivity() {
         when (searchResult) {
             is UiState.Loading -> {
                 binding.rvSearchResult.visibility = View.GONE
+                binding.tvStatus.visibility = View.GONE
                 binding.loadingEffect.visibility = View.VISIBLE
             }
 
             is UiState.Error -> {
+                binding.tvStatus.text = searchResult.message
+
                 binding.rvSearchResult.visibility = View.GONE
                 binding.loadingEffect.visibility = View.GONE
+                binding.tvStatus.visibility = View.VISIBLE
             }
 
             is UiState.Success -> {
-                binding.rvSearchResult.adapter =
-                    SearchResultAdapter(applicationContext, searchResult.data)
-
-                binding.rvSearchResult.visibility = View.VISIBLE
                 binding.loadingEffect.visibility = View.GONE
+
+                if (searchResult.data.isNotEmpty()) {
+
+                    binding.rvSearchResult.adapter =
+                        SearchResultAdapter(applicationContext, searchResult.data)
+
+                    binding.tvStatus.visibility = View.GONE
+                    binding.rvSearchResult.visibility = View.VISIBLE
+
+                } else {
+                    binding.tvStatus.text = getString(R.string.no_result_text)
+
+                    binding.rvSearchResult.visibility = View.GONE
+                    binding.tvStatus.visibility = View.VISIBLE
+                }
             }
         }
     }
