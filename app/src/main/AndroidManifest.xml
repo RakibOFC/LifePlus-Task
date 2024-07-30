@@ -16,20 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LifePlusTask"
         tools:targetApi="31">
-        <!--<activity
-            android:name=".ui.activity.DetailsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TranslucentStatusBar" />-->
         <activity
             android:name=".ui.activity.DetailsActivity"
-            android:exported="true"
-            android:theme="@style/Theme.TranslucentStatusBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"
+            android:theme="@style/Theme.TranslucentStatusBar" />
         <activity
             android:name=".ui.activity.ProfileActivity"
             android:exported="false" />
