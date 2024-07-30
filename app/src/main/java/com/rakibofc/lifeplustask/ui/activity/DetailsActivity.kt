@@ -3,11 +3,9 @@ package com.rakibofc.lifeplustask.ui.activity
 import android.os.Bundle
 import android.text.Html
 import android.text.Spanned
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.gson.Gson
 import com.rakibofc.lifeplustask.R
 import com.rakibofc.lifeplustask.data.remote.Show
 import com.rakibofc.lifeplustask.databinding.ActivityDetailsBinding
@@ -26,21 +24,8 @@ class DetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Make the status bar translucent
-        /*val window = window
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )*/
-
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        /*val decorView = window.decorView
-        decorView.setOnApplyWindowInsetsListener { v: View, insets: WindowInsets ->
-            v.setPadding(0, insets.systemWindowInsetTop, 0, 0)
-            insets.consumeSystemWindowInsets()
-        }*/
 
         // Setup observer
         setupObserver()
@@ -59,15 +44,14 @@ class DetailsActivity : BaseActivity() {
 
         when (showUiState) {
             is UiState.Loading -> {
-                Log.e("TAG", "Loading: ")
+                // Nothing to do..
             }
 
             is UiState.Error -> {
-                Log.e("TAG", "Error: ${showUiState.message}")
+                showToast(showUiState.message)
             }
 
             is UiState.Success -> {
-                Log.e("TAG", "Success: ${Gson().toJson(showUiState.data)}")
                 handleShowDetailsSuccess(showUiState.data)
             }
         }
@@ -86,41 +70,30 @@ class DetailsActivity : BaseActivity() {
         val genres = show.genres.joinToString(", ")
         val schedule =
             getStringFormat(listOf(show.schedule.days.joinToString(", "), show.schedule.time))
+
         // Load show image
-        loadShowThumbnail(show.image?.medium)
+        loadShowThumbnail(show.image?.original)
 
         // Set show details
-        binding.tvShowName.text = show.name
-        binding.tvLangGenTime.text =
-            getStringFormat(
+        binding.apply {
+            tvShowName.text = show.name
+            tvLangGenTime.text = getStringFormat(
                 listOf(
-                    show.language, genres.ifBlank { "" },
-                    if (show.runtime != null) "${show.runtime} mins" else ""
+                    show.language,
+                    genres.ifBlank { "" },
+                    show.runtime?.let { "$it mins" } ?: ""
                 )
             )
-        if (schedule.isNotBlank())
-            binding.tvShowSchedule.text = schedule
-        else
-            binding.tvShowSchedule.visibility = View.GONE
-
-        val summary = show.summary ?: ""
-        val spannedSummary: Spanned = Html.fromHtml(summary, Html.FROM_HTML_MODE_COMPACT)
-        binding.tvShowSummary.text = spannedSummary
+            tvShowSchedule.apply {
+                text = schedule
+                visibility = if (schedule.isNotBlank()) View.VISIBLE else View.GONE
+            }
+            tvShowSummary.text = Html.fromHtml(show.summary ?: "", Html.FROM_HTML_MODE_COMPACT)
+        }
     }
 
     private fun getStringFormat(strings: List<String>): String {
-        var langGenTime = ""
-        strings.indices.forEach {
-            val string = strings[it]
-            if (string.isNotBlank()) {
-                langGenTime += string
-                if (it < strings.size - 1) {
-                    langGenTime += " • "
-                }
-            }
-        }
-
-        return langGenTime
+        return strings.filter { it.isNotBlank() }.joinToString(" • ")
     }
 
     private fun loadShowThumbnail(imageUrl: String?) {

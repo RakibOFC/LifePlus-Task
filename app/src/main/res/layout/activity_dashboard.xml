@@ -88,15 +88,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/item_search_result_effect" />
+            <include layout="@layout/item_search_result_loading" />
 
-            <include layout="@layout/item_search_result_effect" />
+            <include layout="@layout/item_search_result_loading" />
 
-            <include layout="@layout/item_search_result_effect" />
+            <include layout="@layout/item_search_result_loading" />
 
-            <include layout="@layout/item_search_result_effect" />
+            <include layout="@layout/item_search_result_loading" />
 
-            <include layout="@layout/item_search_result_effect" />
+            <include layout="@layout/item_search_result_loading" />
 
         </LinearLayout>
 
