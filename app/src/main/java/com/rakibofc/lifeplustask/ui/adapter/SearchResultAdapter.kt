@@ -43,6 +43,7 @@ class SearchResultAdapter(
         fun bind(position: Int) {
 
             val searchResult = searchResultList[position]
+            val genres = searchResult.show.genres.joinToString(", ")
             val runtime = searchResult.show.runtime
             val rating = searchResult.show.rating?.average
             var schedule = searchResult.show.schedule.days.joinToString(", ")
@@ -53,7 +54,7 @@ class SearchResultAdapter(
 
             tvShowName.text = searchResult.show.name
             tvShowLanguage.text = searchResult.show.language
-            tvShowGenres.text = searchResult.show.genres.joinToString(", ")
+            tvShowGenres.text = if (genres.isNotBlank()) "Genres: $genres" else ("Genres: N/A")
 
             tvShowRuntime.text = if (runtime != null) "Runtime: $runtime mins" else "Runtime: N/A"
             tvShowRating.text = if (rating != null) "Rating: $rating" else "Rating: N/A"

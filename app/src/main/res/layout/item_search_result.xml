@@ -56,7 +56,9 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/_3sdp"
                 android:paddingEnd="@dimen/_3sdp"
-                android:text="@string/placeholder_text" />
+                android:text="@string/placeholder_text"
+                android:textColor="@color/label"
+                android:textSize="@dimen/_9ssp" />
 
             <TextView
                 android:id="@+id/tvShowGenres"
