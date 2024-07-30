@@ -16,4 +16,8 @@
     <string name="search_text">Search</string>
     <string name="no_result_text">No results</string>
     <string name="go_back_text">Go Back</string>
+    <string name="genres_s_text">Genres: %s</string>
+    <string name="schedule_s_text">Schedule: %s</string>
+    <string name="runtime_s_mins_text">Runtime: %s mins</string>
+    <string name="summary_text">Summary</string>
 </resources>

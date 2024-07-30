@@ -16,6 +16,12 @@
         <item name="cornerSize">@dimen/_20sdp</item>
     </style>
 
+    <style name="movieBannerImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">@dimen/_20sdp</item>
+        <item name="cornerSizeBottomRight">@dimen/_20sdp</item>
+    </style>
+
     <style name="CustomButton" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">@color/white</item>
         <item name="cornerRadius">@dimen/_4sdp</item>

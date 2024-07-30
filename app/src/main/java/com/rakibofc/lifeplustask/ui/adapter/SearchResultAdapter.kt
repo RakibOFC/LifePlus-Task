@@ -3,6 +3,7 @@ package com.rakibofc.lifeplustask.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.rakibofc.lifeplustask.R
 import com.rakibofc.lifeplustask.data.remote.SearchResult
@@ -61,15 +62,21 @@ class SearchResultAdapter(
 
             tvShowName.text = searchResult.show.name
             tvShowLanguage.text = searchResult.show.language
-            tvShowGenres.text = if (genres.isNotBlank()) "Genres: $genres" else ("Genres: N/A")
-
+            tvShowGenres.text = getStringFormat(genres, R.string.genres_s_text)
             tvShowRuntime.text = if (runtime != null) "Runtime: $runtime mins" else "Runtime: N/A"
             tvShowRating.text = if (rating != null) "Rating: $rating" else "Rating: N/A"
-            tvShowSchedule.text =
-                if (schedule.isNotBlank()) "Schedule: $schedule" else "Schedule: N/A"
+            tvShowSchedule.text = getStringFormat(schedule, R.string.schedule_s_text)
 
             itemView.setOnClickListener {
                 onItemClickListener.onItemClick(position, searchResult)
+            }
+        }
+
+        private fun getStringFormat(string: String, @StringRes stringRes: Int): String {
+            return if (string.isNotBlank()) {
+                context.getString(stringRes, string)
+            } else {
+                context.getString(stringRes, "N/A")
             }
         }
 

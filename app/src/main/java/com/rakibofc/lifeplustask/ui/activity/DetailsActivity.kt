@@ -2,6 +2,9 @@ package com.rakibofc.lifeplustask.ui.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
@@ -12,6 +15,7 @@ import com.rakibofc.lifeplustask.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class DetailsActivity : BaseActivity() {
 
@@ -21,8 +25,21 @@ class DetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Make the status bar translucent
+        val window = window
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /*val decorView = window.decorView
+        decorView.setOnApplyWindowInsetsListener { v: View, insets: WindowInsets ->
+            v.setPadding(0, insets.systemWindowInsetTop, 0, 0)
+            insets.consumeSystemWindowInsets()
+        }*/
 
         // Setup observer
         setupObserver()
