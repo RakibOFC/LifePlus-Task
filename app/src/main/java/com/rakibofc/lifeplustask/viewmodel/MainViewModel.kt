@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.data.remote.SearchResult
+import com.rakibofc.lifeplustask.data.remote.Show
 import com.rakibofc.lifeplustask.domain.usecase.MainUseCase
 import com.rakibofc.lifeplustask.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,6 +29,9 @@ class MainViewModel @Inject constructor(
 
     private val _searchResult = MutableLiveData<UiState<List<SearchResult>>>()
     val searchResult: LiveData<UiState<List<SearchResult>>> get() = _searchResult
+
+    private val _showDetails = MutableLiveData<UiState<Show>>()
+    val showDetails: LiveData<UiState<Show>> get() = _showDetails
 
     suspend fun registerUser(user: UserEntity) {
         _registerUser.postValue(UiState.Loading)
@@ -54,6 +58,13 @@ class MainViewModel @Inject constructor(
         _searchResult.postValue(UiState.Loading)
         viewModelScope.launch {
             _searchResult.postValue(mainUseCase.getSearchResult(query))
+        }
+    }
+
+    suspend fun setShowDetails(showDetails: Show?) {
+        _showDetails.postValue(UiState.Loading)
+        viewModelScope.launch {
+            _showDetails.postValue(mainUseCase.setShowDetails(showDetails))
         }
     }
 }

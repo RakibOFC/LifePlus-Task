@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.rakibofc.lifeplustask.R
 import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.data.remote.SearchResult
+import com.rakibofc.lifeplustask.data.remote.Show
 import com.rakibofc.lifeplustask.databinding.ActivityDashboardBinding
 import com.rakibofc.lifeplustask.ui.adapter.SearchResultAdapter
 import com.rakibofc.lifeplustask.util.UiState
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 @AndroidEntryPoint
-class DashboardActivity : BaseActivity() {
+class DashboardActivity : BaseActivity(), SearchResultAdapter.OnItemClickListener {
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityDashboardBinding
@@ -139,7 +140,11 @@ class DashboardActivity : BaseActivity() {
                 if (searchResult.data.isNotEmpty()) {
 
                     binding.rvSearchResult.adapter =
-                        SearchResultAdapter(applicationContext, searchResult.data)
+                        SearchResultAdapter(
+                            applicationContext,
+                            searchResult.data,
+                            this@DashboardActivity
+                        )
 
                     binding.tvStatus.visibility = View.GONE
                     binding.rvSearchResult.visibility = View.VISIBLE
@@ -186,5 +191,11 @@ class DashboardActivity : BaseActivity() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val view = currentFocus ?: View(this)
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    override fun onItemClick(position: Int, searchResult: SearchResult) {
+        startActivity(Intent(this@DashboardActivity, DetailsActivity::class.java).apply {
+            putExtra(Show.SHOW_KEY, searchResult.show)
+        })
     }
 }

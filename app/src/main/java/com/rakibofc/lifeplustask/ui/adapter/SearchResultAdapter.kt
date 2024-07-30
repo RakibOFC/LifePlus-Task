@@ -11,11 +11,18 @@ import com.squareup.picasso.Picasso
 
 class SearchResultAdapter(
     private val context: Context,
-    private val searchResultList: List<SearchResult>
+    private val searchResultList: List<SearchResult>,
+    private val onItemClickListener: OnItemClickListener
 ) :
     RecyclerView.Adapter<SearchResultAdapter.SearchResultViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, searchResult: SearchResult)
+    }
+
+    override
+
+    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
         val layoutInflater = LayoutInflater.from(context)
         val binding = ItemSearchResultBinding.inflate(layoutInflater, parent, false)
         return SearchResultViewHolder(binding)
@@ -60,6 +67,10 @@ class SearchResultAdapter(
             tvShowRating.text = if (rating != null) "Rating: $rating" else "Rating: N/A"
             tvShowSchedule.text =
                 if (schedule.isNotBlank()) "Schedule: $schedule" else "Schedule: N/A"
+
+            itemView.setOnClickListener {
+                onItemClickListener.onItemClick(position, searchResult)
+            }
         }
 
         private fun loadShowThumbnail(imageUrl: String?) {

@@ -4,6 +4,7 @@ import com.rakibofc.lifeplustask.data.local.LifePlusDao
 import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.data.remote.ApiService
 import com.rakibofc.lifeplustask.data.remote.SearchResult
+import com.rakibofc.lifeplustask.data.remote.Show
 import com.rakibofc.lifeplustask.domain.usecase.MainUseCase
 import com.rakibofc.lifeplustask.util.UiState
 import javax.inject.Inject
@@ -53,6 +54,14 @@ class MainRepository @Inject constructor(
             UiState.Success(apiService.getSearchResult(query))
         } catch (ex: Exception) {
             UiState.Error(ex.message ?: "Unknown error occurred")
+        }
+    }
+
+    override suspend fun setShowDetails(showDetails: Show?): UiState<Show> {
+        return if (showDetails != null) {
+            UiState.Success(showDetails)
+        } else {
+            UiState.Error("Data not found")
         }
     }
 }
