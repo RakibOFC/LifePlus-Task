@@ -1,83 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activity.DetailsActivity">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.rakibofc.lifeplustask.ui.customlayout.AspectRatioImageView
-            android:id="@+id/ivShowImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder" />
+        android:layout_height="match_parent"
+        tools:context=".ui.activity.DetailsActivity">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvShowName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/placeholder_text"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15ssp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvLangGenTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:text="@string/placeholder_text"
-                android:textAlignment="center"
-                android:textColor="@color/label"
-                android:textSize="@dimen/_9ssp" />
-            <!-- English • Comedy, Drama • 30 mins -->
-
-            <View
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:background="@color/line" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvShowSchedule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/placeholder_text" />
-            <!-- Schedule: Sunday, 12:00 PM • Rating: 7.6 -->
+                <com.rakibofc.lifeplustask.ui.customlayout.AspectRatioImageView
+                    android:id="@+id/ivShowImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/summary_text"
-                android:textSize="@dimen/_11ssp"
-                android:textStyle="bold" />
+                <ProgressBar
+                    android:id="@+id/pbImageLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tvShowSummary"
-                android:layout_width="wrap_content"
+            </FrameLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/placeholder_text"
-                android:textSize="@dimen/_11ssp" />
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvShowName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_text"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvLangGenTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="@string/placeholder_text"
+                    android:textAlignment="center"
+                    android:textColor="@color/label"
+                    android:textSize="@dimen/_9ssp" />
+                <!-- English • Comedy, Drama • 30 mins -->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:id="@+id/tvShowSchedule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/placeholder_text" />
+                <!-- Schedule: Sunday, 12:00 PM • Rating: 7.6 -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/summary_text"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvShowSummary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_text"
+                    android:textSize="@dimen/_11ssp" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.core.widget.NestedScrollView>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBackArrow"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/circle_click_effect"
+        android:clickable="true"
+        android:contentDescription="@string/back_arrow_text"
+        android:focusable="true"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/baseline_arrow_back" />
+
+</FrameLayout>

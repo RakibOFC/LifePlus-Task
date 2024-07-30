@@ -20,4 +20,5 @@
     <string name="schedule_s_text">Schedule: %s</string>
     <string name="runtime_s_mins_text">Runtime: %s mins</string>
     <string name="summary_text">Summary</string>
+    <string name="back_arrow_text">Back Arrow</string>
 </resources>
