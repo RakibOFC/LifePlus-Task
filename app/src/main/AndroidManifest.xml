@@ -23,20 +23,9 @@
         <activity
             android:name=".ui.activity.ProfileActivity"
             android:exported="false" />
-        <!--
-        <activity
-            android:name=".ui.DashboardActivity"
-            android:exported="false" />
-        -->
         <activity
             android:name=".ui.activity.DashboardActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".ui.activity.RegistrationActivity"
             android:exported="false"

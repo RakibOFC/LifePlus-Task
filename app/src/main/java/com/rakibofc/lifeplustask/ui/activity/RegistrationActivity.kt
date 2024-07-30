@@ -2,7 +2,10 @@ package com.rakibofc.lifeplustask.ui.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.textfield.TextInputLayout
 import com.rakibofc.lifeplustask.R
 import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.databinding.ActivityRegistrationBinding
@@ -31,6 +34,28 @@ class RegistrationActivity : BaseActivity() {
     }
 
     private fun setupObserver() {
+
+        viewModel.userNameValidation.observe(this) {
+            binding.apply {
+                when (it) {
+                    is UiState.Error -> {
+                        binding.inputUserNameLayout.endIconMode = TextInputLayout.END_ICON_NONE
+                        inputUserName.error = it.message
+                    }
+
+                    is UiState.Loading -> {
+                        btnRegister.isEnabled = false
+                    }
+
+                    is UiState.Success -> {
+                        inputUserName.error = null
+                        validInputUserNameUi(inputUserNameLayout)
+                        btnRegister.isEnabled = true
+                    }
+                }
+            }
+        }
+
         viewModel.registerUser.observe(this) {
             when (it) {
                 is UiState.Loading -> {
@@ -51,9 +76,31 @@ class RegistrationActivity : BaseActivity() {
         }
     }
 
+    private fun validInputUserNameUi(inputUserNameLayout: TextInputLayout) {
+        inputUserNameLayout.endIconMode = TextInputLayout.END_ICON_CUSTOM
+        inputUserNameLayout.setEndIconDrawable(R.drawable.baseline_check_circle_24)
+        inputUserNameLayout.setEndIconTintList(
+            ContextCompat.getColorStateList(
+                applicationContext,
+                R.color.green_tint
+            )
+        )
+    }
+
     private fun setupListener() {
+
+        binding.inputUserName.doAfterTextChanged {
+            userNameValidation(it.toString())
+        }
+
         binding.btnRegister.setOnClickListener {
             registerUser()
+        }
+    }
+
+    private fun userNameValidation(userName: String) {
+        lifecycleScope.launch {
+            viewModel.userNameValidation(userName)
         }
     }
 

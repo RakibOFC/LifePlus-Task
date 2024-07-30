@@ -18,6 +18,9 @@ class MainViewModel @Inject constructor(
     private val mainUseCase: MainUseCase
 ) : ViewModel() {
 
+    private val _userNameValidation = MutableLiveData<UiState<String>>()
+    val userNameValidation: LiveData<UiState<String>> get() = _userNameValidation
+
     private val _registerUser = MutableLiveData<UiState<String>>()
     val registerUser: LiveData<UiState<String>> get() = _registerUser
 
@@ -32,6 +35,13 @@ class MainViewModel @Inject constructor(
 
     private val _showDetails = MutableLiveData<UiState<Show>>()
     val showDetails: LiveData<UiState<Show>> get() = _showDetails
+
+    suspend fun userNameValidation(inputUserName: String) {
+        _userNameValidation.postValue(UiState.Loading)
+        viewModelScope.launch {
+            _userNameValidation.postValue(mainUseCase.userNameValidation(inputUserName))
+        }
+    }
 
     suspend fun registerUser(user: UserEntity) {
         _registerUser.postValue(UiState.Loading)

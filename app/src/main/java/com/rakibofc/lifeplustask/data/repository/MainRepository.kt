@@ -14,10 +14,30 @@ class MainRepository @Inject constructor(
     private val apiService: ApiService
 ) : MainUseCase {
 
+    override suspend fun userNameValidation(inputUserName: String): UiState<String> {
+        if (inputUserName.isBlank()) {
+            return UiState.Error("User name cannot be empty")
+        }
+
+        return try {
+            val userName = lifePlusDao.userNameValidation(inputUserName)
+            if (userName?.isNotBlank() == true) {
+                UiState.Error("User name already exists")
+            } else {
+                UiState.Success("User name is available")
+            }
+        } catch (ex: Exception) {
+            UiState.Error(ex.message ?: "Unknown error occurred")
+        }
+    }
+
     override suspend fun registerUser(user: UserEntity): UiState<String> {
         return try {
-            lifePlusDao.registerUser(user)
-            UiState.Success("User registered successfully")
+            val userId = lifePlusDao.registerUser(user)
+            when {
+                userId.toFloat() == -1F -> UiState.Error("User already exists")
+                else -> UiState.Success("User registered successfully")
+            }
         } catch (ex: Exception) {
             UiState.Error(ex.message ?: "Unknown error occurred")
         }

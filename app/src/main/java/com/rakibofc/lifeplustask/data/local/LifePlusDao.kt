@@ -8,8 +8,11 @@ import androidx.room.Query
 @Dao
 interface LifePlusDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun registerUser(user: UserEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun registerUser(user: UserEntity) : Long
+
+    @Query("SELECT userName FROM users WHERE userName = :inputUserName")
+    suspend fun userNameValidation(inputUserName: String): String?
 
     @Query(
         """

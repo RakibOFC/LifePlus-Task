@@ -7,4 +7,5 @@
     <color name="loading_effect">#808080</color>
     <color name="line">#B0B0B0</color>
     <color name="label">#808080</color>
+    <color name="green_tint">#009706</color>
 </resources>
