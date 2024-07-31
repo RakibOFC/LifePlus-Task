@@ -14,6 +14,7 @@ import com.rakibofc.lifeplustask.data.remote.SearchResult
 import com.rakibofc.lifeplustask.data.remote.Show
 import com.rakibofc.lifeplustask.databinding.ActivityDashboardBinding
 import com.rakibofc.lifeplustask.ui.adapter.SearchResultAdapter
+import com.rakibofc.lifeplustask.util.AppPreference
 import com.rakibofc.lifeplustask.util.UiState
 import com.rakibofc.lifeplustask.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,6 +57,8 @@ class DashboardActivity : BaseActivity(), SearchResultAdapter.OnItemClickListene
         }
 
         binding.ivLogout.setOnClickListener {
+            AppPreference.with(applicationContext).remove(UserEntity.IS_LOGGED_IN_KEY)
+            AppPreference.with(applicationContext).remove(UserEntity.USER_ID_KEY)
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
