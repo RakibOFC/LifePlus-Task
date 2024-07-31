@@ -6,6 +6,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.rakibofc.lifeplustask.R
+import com.rakibofc.lifeplustask.data.local.UserEntity
+import com.rakibofc.lifeplustask.util.AppPreference
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,8 +22,21 @@ class SplashUiActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash_ui)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, LoginActivity::class.java))
+
+            // Get values from shared preference
+            val isLoggedIn = AppPreference.with(applicationContext)
+                .getBoolean(UserEntity.IS_LOGGED_IN_KEY, false)
+            val userID = AppPreference.with(applicationContext).getLong(UserEntity.USER_ID_KEY, 0L)
+
+            if (isLoggedIn) {
+                startActivity(Intent(this@SplashUiActivity, DashboardActivity::class.java).apply {
+                    putExtra(UserEntity.USER_ID_KEY, userID)
+                })
+            } else {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
             finish()
+
         }, SPLASH_DELAY)
     }
 }

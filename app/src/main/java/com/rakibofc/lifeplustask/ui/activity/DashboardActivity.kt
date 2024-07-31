@@ -35,7 +35,7 @@ class DashboardActivity : BaseActivity(), SearchResultAdapter.OnItemClickListene
         setContentView(binding.root)
 
         // Get user id from intent
-        userID = intent.getLongExtra(UserEntity.USER_ID, 0)
+        userID = intent.getLongExtra(UserEntity.USER_ID_KEY, 0)
 
         // Setup observer
         setupObserver()
@@ -49,10 +49,15 @@ class DashboardActivity : BaseActivity(), SearchResultAdapter.OnItemClickListene
 
     private fun setupListener() {
 
-        binding.llcName.setOnClickListener {
+        binding.rlName.setOnClickListener {
             startActivity(Intent(this@DashboardActivity, ProfileActivity::class.java).apply {
-                putExtra(UserEntity.USER_ID, userID)
+                putExtra(UserEntity.USER_ID_KEY, userID)
             })
+        }
+
+        binding.ivLogout.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
 
         binding.searchViewText.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -64,7 +69,6 @@ class DashboardActivity : BaseActivity(), SearchResultAdapter.OnItemClickListene
                 }
 
                 // Hide keyboard
-                // hideKeyboard()
                 binding.searchViewText.clearFocus()
 
                 return true

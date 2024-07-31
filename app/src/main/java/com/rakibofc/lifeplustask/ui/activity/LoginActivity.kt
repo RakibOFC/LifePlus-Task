@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.rakibofc.lifeplustask.R
 import com.rakibofc.lifeplustask.data.local.UserEntity
 import com.rakibofc.lifeplustask.databinding.ActivityLoginBinding
+import com.rakibofc.lifeplustask.util.AppPreference
 import com.rakibofc.lifeplustask.util.UiState
 import com.rakibofc.lifeplustask.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,14 +45,23 @@ class LoginActivity : BaseActivity() {
                 }
 
                 is UiState.Success -> {
-                    binding.btnLogin.isEnabled = true
-                    startActivity(Intent(this@LoginActivity, DashboardActivity::class.java).apply {
-                        putExtra(UserEntity.USER_ID, it.data.id)
-                    })
-                    finish()
+                    handleSuccessLoggedIn(it.data.id)
                 }
             }
         }
+    }
+
+    private fun handleSuccessLoggedIn(userID: Long) {
+
+        // Save login credential in shared preference
+        AppPreference.with(applicationContext).addBoolean(UserEntity.IS_LOGGED_IN_KEY, true)
+        AppPreference.with(applicationContext).addLong(UserEntity.USER_ID_KEY, userID)
+
+        binding.btnLogin.isEnabled = true
+        startActivity(Intent(this@LoginActivity, DashboardActivity::class.java).apply {
+            putExtra(UserEntity.USER_ID_KEY, userID)
+        })
+        finish()
     }
 
     private fun setupListener() {

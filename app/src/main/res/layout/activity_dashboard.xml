@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/llcName"
+        <RelativeLayout
+            android:id="@+id/rlName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -23,14 +23,16 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingStart="@dimen/_15sdp"
-            android:paddingTop="@dimen/_10sdp"
+            android:paddingTop="@dimen/_5sdp"
             android:paddingEnd="@dimen/_15sdp"
-            android:paddingBottom="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_5sdp"
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivProfileIcon"
                 android:layout_width="@dimen/_32sdp"
                 android:layout_height="@dimen/_32sdp"
+                android:layout_centerVertical="true"
                 android:adjustViewBounds="true"
                 android:background="@drawable/ic_profile"
                 android:scaleType="centerCrop"
@@ -40,12 +42,31 @@
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_toStartOf="@+id/ivLogout"
+                android:layout_toEndOf="@id/ivProfileIcon"
+                android:orientation="vertical"
+                android:padding="@dimen/_5sdp"
                 android:text="@string/app_name"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivLogout"
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/logout_text"
+                android:focusable="true"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/baseline_logout" />
+
+        </RelativeLayout>
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/mToolbar"

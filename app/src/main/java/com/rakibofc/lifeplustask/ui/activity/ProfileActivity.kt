@@ -61,7 +61,7 @@ class ProfileActivity : BaseActivity() {
     private fun loadViewModelData() {
 
         // Get user id from intent
-        val userID = intent.getLongExtra(UserEntity.USER_ID, 0)
+        val userID = intent.getLongExtra(UserEntity.USER_ID_KEY, 0)
         lifecycleScope.launch {
             viewModel.loadUser(userID)
         }

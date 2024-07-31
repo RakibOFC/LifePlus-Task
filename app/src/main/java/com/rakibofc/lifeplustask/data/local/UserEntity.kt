@@ -13,6 +13,7 @@ data class UserEntity(
     val phone: String
 ) {
     companion object {
-        const val USER_ID = "userId"
+        const val USER_ID_KEY = "userId"
+        const val IS_LOGGED_IN_KEY = "isLoggedIn"
     }
 }
